@@ -1,9 +1,8 @@
-package src
-
+package main.scala
 
 @main def QRcode(args: String*) =
-    qr = Qr("Hello", 21)
-    qr.fill_fixe_modules()
-    qr.printall(qr.qr)  
+    val qr = Qr("Hello", 21)
+    val code = qr.fill_fixe_modules()
+    qr.printall(code)  
     
     

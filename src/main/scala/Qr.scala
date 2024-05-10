@@ -1,7 +1,8 @@
-import scala.compiletime.ops.double
-package src
+
+package main.scala
 
 class Qr(val message: String, val size: Int):
+    import scala.compiletime.ops.double
 
     type qrcode = Array[color]
 
@@ -30,22 +31,24 @@ class Qr(val message: String, val size: Int):
             ::: row.map(_ * size + 6)
             ::: row.map(_ * size + size - 7)
             ::: row.map(_ * size + size - 1)
-            ::: row.map((_ + (size - 7)) * size)
-            ::: row.map((_ + (size - 7)) * size + 6)
+            ::: row.map(_ * size + (size - 7) * size)
+            ::: row.map(_ * size + (size - 7) * size + 6)
+        
         
         val square = 
-            (2 to 4).toList
-            ::: (2 to 4).toList.map(_ + size)
-            ::: (2 to 4).toList.map(_ + 2 * size)
+            (2 to 4).toList.map(_ + 2 * size)
+            ::: (2 to 4).toList.map(_ + 3 *size)
+            ::: (2 to 4).toList.map(_ + 4 * size)
+        
         
         val allsquares = 
             square
             ::: square.map(_ + (size - 7))
             ::: square.map(_ + (size - 7) * size)
         
-        val lined = (1 to ((size - 16 + 1)/2)).toList.map(_ * 2 + 6 + size * 6)
+        val lined = (1 to ((size - 16 + 1)/2)).toList.map(_ * 2 + 6)
         val allalternates = 
-            ((size - 8) * size + 8 :: lined)
+            ((size - 8) * size + 8 :: lined.map(_ + size * 6))
             ::: lined.map(_ * size + 6)
 
         val all = blacklines ::: blackrows ::: allsquares ::: allalternates
@@ -56,7 +59,7 @@ class Qr(val message: String, val size: Int):
         qr
         
     def printall(qr: qrcode): Unit =
-        qr.grouped(size).foreach(el => el.foreach(e => print(if e == color.black then "X" else " ")) + println())
+        qr.grouped(size).foreach(el => {el.foreach(e => print(if e == color.black then "X" else " ")); println()})
 
       
     
