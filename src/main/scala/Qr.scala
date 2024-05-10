@@ -1,12 +1,15 @@
 import scala.compiletime.ops.double
+package src
 
 class Qr(val message: String, val size: Int):
 
-     enum color(val value: Int):
+    type qrcode = Array[color]
+
+    enum color(val value: Int):
         case black extends color(255)
         case white extends color(0)
 
-    type qrcode = Array[color]
+    
 
 
     def fill_fixe_modules(): qrcode =
@@ -42,13 +45,15 @@ class Qr(val message: String, val size: Int):
         
         val lined = (1 to ((size - 16 + 1)/2)).toList.map(_ * 2 + 6 + size * 6)
         val allalternates = 
-            (size - 8) * size + 8 :: lined
+            ((size - 8) * size + 8 :: lined)
             ::: lined.map(_ * size + 6)
 
         val all = blacklines ::: blackrows ::: allsquares ::: allalternates
 
         for i <- all do
             qr(i) = color.black
+
+        qr
         
     def printall(qr: qrcode): Unit =
         qr.grouped(size).foreach(el => el.foreach(e => print(if e == color.black then "X" else " ")) + println())

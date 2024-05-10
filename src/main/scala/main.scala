@@ -1,4 +1,4 @@
-import Qr._
+package src
 
 
 @main def QRcode(args: String*) =
