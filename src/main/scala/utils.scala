@@ -12,9 +12,9 @@ def degre(n: Int): Int =
 def modulo(p: Int, q: Int): Int =
 
     val pdeg = degre(p)
-        val qdeg = degre(q)
-        if pdeg < qdeg then p
-        else modulo(p ^ (q << (pdeg - qdeg)), q)
+    val qdeg = degre(q)
+    if pdeg < qdeg then p
+    else modulo(p ^ (q << (pdeg - qdeg)), q)
 
 
 
